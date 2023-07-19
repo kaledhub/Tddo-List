@@ -31,21 +31,17 @@ import { v4 as uuidv4 } from "uuid";
 const tasksList = [
   {
     id: uuidv4(),
-    taskTitle: "task 1",
-    taskDetails: "details of first task",
-    isCompleted: false,
-  },
-  {
-    id: uuidv4(),
-    taskTitle: "task 2",
-    taskDetails: "details of second task",
+    taskTitle: null,
+    taskDetails: null,
     isCompleted: false,
   },
 ];
-
 function TaskList() {
   // useState of tasks object
   const [tasks, setTasks] = useState(tasksList);
+
+  //useState for adding new title input
+  const [titleInput, setTitleInput] = useState("");
 
   // handleIsCompletedOnClick to check when task is completed or not
   const handleIsCompletedOnClick = (taskId) => {
@@ -59,15 +55,35 @@ function TaskList() {
     setTasks(isCompletedTask);
   };
 
+  // handleAddNewTaskClick to add a new task
+  const handleAddNewTaskClick = () => {
+    // The new task should have the same structure of the main object
+    const newTask = {
+      id: uuidv4(),
+      taskTitle: titleInput,
+      taskDetails: "",
+      isCompleted: false,
+    };
+
+    setTasks([...tasks, newTask]);
+    setTitleInput("");
+  };
+
+  // reverse [tasks] to show the latest task that added to tasks
+  const tasksObjWithReverse = [...tasks].reverse();
   // map to show tasks object in <SingleTaskInfo/>
-  const showingTasks = tasks.map((task) => {
-    return (
-      <SingleTaskInfo
-        key={task.id}
-        tasksObj={task}
-        handleIsCompleted={handleIsCompletedOnClick}
-      />
-    );
+  const showingTasks = tasksObjWithReverse.map((task) => {
+    if (task.taskTitle === null) {
+      return null;
+    } else {
+      return (
+        <SingleTaskInfo
+          key={task.id}
+          tasksObj={task}
+          handleIsCompleted={handleIsCompletedOnClick}
+        />
+      );
+    }
   });
 
   return (
@@ -99,7 +115,10 @@ function TaskList() {
         {/* === CARD HEADER: MAIN TITLE + TOGGLE BUTTONS === */}
 
         {/* CARD BODY: TASKS + ICONS */}
-        <CardBody maxH={"lg"} overflow={"scroll"}>
+        <CardBody
+          maxH={"lg"}
+          overflow={tasks.length > 4 ? "scroll" : "visible"}
+        >
           {showingTasks}
         </CardBody>
         {/* === CARD BODY: TASKS + ICONS ===  */}
@@ -115,7 +134,10 @@ function TaskList() {
           >
             <GridItem colSpan={{ md: 11, lg: 11 }}>
               <Input
-                // textAlign={"right"}
+                value={titleInput}
+                onChange={(event) => {
+                  setTitleInput(event.target.value);
+                }}
                 color="teal"
                 placeholder="عنوان المهمة"
                 _placeholder={{ color: "inherit" }}
@@ -125,6 +147,7 @@ function TaskList() {
             </GridItem>
             <GridItem colSpan={1}>
               <Button
+                onClick={handleAddNewTaskClick}
                 bg={"primary"}
                 _hover={{ bg: "primary_hover" }}
                 w={{ base: "full" }}
