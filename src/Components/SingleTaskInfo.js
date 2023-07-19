@@ -14,7 +14,7 @@ import { CheckCircleIcon } from "@chakra-ui/icons";
 import { RiEditBoxFill } from "react-icons/ri";
 import { MdCancel } from "react-icons/md";
 
-function SingleTaskInfo() {
+function SingleTaskInfo({ tasksObj, handleIsCompleted }) {
   return (
     <>
       <Card
@@ -27,8 +27,8 @@ function SingleTaskInfo() {
       >
         <Grid templateColumns="repeat(12, 1fr)">
           <GridItem colSpan={8}>
-            <Text fontWeight={"bold"}>عنوان المهمة</Text>
-            <Text>تفاصيل المهمة</Text>
+            <Text fontWeight={"bold"}>{tasksObj.taskTitle}</Text>
+            <Text>{tasksObj.taskDetails}</Text>
           </GridItem>
 
           <GridItem
@@ -41,9 +41,12 @@ function SingleTaskInfo() {
             <ButtonGroup>
               {/* CHECKED ICON */}
               <IconButton
-                color="green.600"
+                onClick={() => {
+                  handleIsCompleted(tasksObj.id);
+                }}
+                color={tasksObj.isCompleted ? "green.400" : "gray.400"}
                 border={"2px"}
-                borderColor={"green.600"}
+                borderColor={tasksObj.isCompleted ? "green.400" : "gray.400"}
                 borderRadius={"full"}
                 icon={<CheckCircleIcon />}
               />

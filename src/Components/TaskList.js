@@ -1,6 +1,9 @@
 // IMPORT COMPONENTS
 import SingleTaskInfo from "./SingleTaskInfo";
 
+// OTHER
+import { useState } from "react";
+
 // IMPORTS OF CHAKRA COMPONENTS
 import {
   Text,
@@ -21,13 +24,58 @@ import {
 // IMPORT REACT ICONS
 import { BsCardChecklist } from "react-icons/bs";
 
+// IMPORT UUID
+import { v4 as uuidv4 } from "uuid";
+
+// TASKS OBJECT
+const tasksList = [
+  {
+    id: uuidv4(),
+    taskTitle: "task 1",
+    taskDetails: "details of first task",
+    isCompleted: false,
+  },
+  {
+    id: uuidv4(),
+    taskTitle: "task 2",
+    taskDetails: "details of second task",
+    isCompleted: false,
+  },
+];
+
 function TaskList() {
+  // useState of tasks object
+  const [tasks, setTasks] = useState(tasksList);
+
+  // handleIsCompletedOnClick to check when task is completed or not
+  const handleIsCompletedOnClick = (taskId) => {
+    const isCompletedTask = tasks.map((task) => {
+      if (task.id === taskId) {
+        task.isCompleted = !task.isCompleted;
+      }
+      return task;
+    });
+
+    setTasks(isCompletedTask);
+  };
+
+  // map to show tasks object in <SingleTaskInfo/>
+  const showingTasks = tasks.map((task) => {
+    return (
+      <SingleTaskInfo
+        key={task.id}
+        tasksObj={task}
+        handleIsCompleted={handleIsCompletedOnClick}
+      />
+    );
+  });
+
   return (
     <>
       <Card
         bg={"whiteBlack.600"}
         w={{ base: "sm", md: "md", lg: "md" }}
-        h={"fit-content"}
+        h={"xl"}
       >
         {/* CARD HEADER: MAIN TITLE + TOGGLE BUTTONS */}
         <CardHeader>
@@ -51,9 +99,8 @@ function TaskList() {
         {/* === CARD HEADER: MAIN TITLE + TOGGLE BUTTONS === */}
 
         {/* CARD BODY: TASKS + ICONS */}
-        <CardBody>
-          <SingleTaskInfo />
-          <SingleTaskInfo />
+        <CardBody maxH={"lg"} overflow={"scroll"}>
+          {showingTasks}
         </CardBody>
         {/* === CARD BODY: TASKS + ICONS ===  */}
 
