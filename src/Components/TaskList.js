@@ -25,7 +25,7 @@ import {
 import { BsCardChecklist } from "react-icons/bs";
 
 // IMPORT UUID
-import { parse, v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 // TASKS OBJECT
 const tasksList = [
@@ -43,12 +43,13 @@ function TaskList() {
   const [tasks, setTasks] = useState(tasksList);
   //useState for adding new title input
   const [titleInput, setTitleInput] = useState("");
-
+  // useState of tasks categories
+  const [categoryType, setCategoryType] = useState("All");
   // === STATES SECTION ===
 
   // useEffect to read data from local storage
   useEffect(() => {
-    const tasksStorage = JSON.parse(localStorage.getItem("task"));
+    const tasksStorage = JSON.parse(localStorage.getItem("task")) ?? [];
     setTasks(tasksStorage);
   }, []);
   // === GET DATA FROM LOCAL STORAGE ===
@@ -94,10 +95,32 @@ function TaskList() {
   };
   // ==== HANDLING DELETE TASK ====
 
+  // CATEGORY FILTRATION
+  const completedCategory = tasks.filter((task) => {
+    return task.isCompleted;
+  });
+
+  const notCompletedCategory = tasks.filter((task) => {
+    return !task.isCompleted;
+  });
+
+  // === CATEGORY FILTRATION ===
+
+  // rendering tasks based on category type
+  let tasksToBeRendered = tasks;
+
+  if (categoryType === "Completed") {
+    tasksToBeRendered = completedCategory;
+  } else if (categoryType === "Non-completed") {
+    tasksToBeRendered = notCompletedCategory;
+  } else {
+    tasksToBeRendered = tasks;
+  }
+
   // reverse [tasks] to show the latest task that added to tasks
-  const tasksObjWithReverse = [...tasks].reverse();
+  // tasksToBeRendered = [...tasks].reverse();
   // map to show tasks object in <SingleTaskInfo/>
-  const showingTasks = tasksObjWithReverse.map((task) => {
+  const showingTasks = tasksToBeRendered.map((task) => {
     if (task.taskTitle === null) {
       return null;
     } else {
@@ -134,9 +157,34 @@ function TaskList() {
             </AbsoluteCenter>
           </Box>
           <ButtonGroup display={"flex"} justifyContent={"center"}>
-            <Button color={"primary"}>الكل</Button>
-            <Button color={"primary"}>منجز</Button>
-            <Button color={"primary"}>غير منجز</Button>
+            <Button
+              value={"All"}
+              onClick={(event) => {
+                // setCategoryType("All");
+                console.log(event.target.value);
+              }}
+              color={"primary"}
+            >
+              الكل
+            </Button>
+            <Button
+              value={"Completed"}
+              onClick={(event) => {
+                setCategoryType(event.target.value);
+              }}
+              color={"primary"}
+            >
+              منجز
+            </Button>
+            <Button
+              value={"Non-completed"}
+              onClick={(event) => {
+                setCategoryType(event.target.value);
+              }}
+              color={"primary"}
+            >
+              غير منجز
+            </Button>
           </ButtonGroup>
           {/* === DIVIDER BETWEEN HEADER TITLE AND TOGGLE BUTTON ===*/}
         </CardHeader>
