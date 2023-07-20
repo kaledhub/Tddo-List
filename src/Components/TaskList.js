@@ -46,7 +46,7 @@ function TaskList() {
   // useState of tasks categories
   const [categoryType, setCategoryType] = useState("All");
   // === STATES SECTION ===
-
+  console.log(categoryType);
   // useEffect to read data from local storage
   useEffect(() => {
     const tasksStorage = JSON.parse(localStorage.getItem("task")) ?? [];
@@ -54,6 +54,9 @@ function TaskList() {
   }, []);
   // === GET DATA FROM LOCAL STORAGE ===
 
+  const e = (e) => {
+    setCategoryType(e.target.value);
+  };
   // HANDLING IS COMPLETED TO SWITCH ICON FROM NOT COMPLETE TO COMPLETED
   const handleIsCompletedOnClick = (taskId) => {
     const isCompletedTask = tasks.map((task) => {
@@ -107,7 +110,7 @@ function TaskList() {
   // === CATEGORY FILTRATION ===
 
   // rendering tasks based on category type
-  let tasksToBeRendered = tasks;
+  let tasksToBeRendered;
 
   if (categoryType === "Completed") {
     tasksToBeRendered = completedCategory;
@@ -120,7 +123,7 @@ function TaskList() {
   // reverse [tasks] to show the latest task that added to tasks
   // tasksToBeRendered = [...tasks].reverse();
   // map to show tasks object in <SingleTaskInfo/>
-  const showingTasks = tasksToBeRendered.map((task) => {
+  const showingTasks = [...tasksToBeRendered].reverse().map((task) => {
     if (task.taskTitle === null) {
       return null;
     } else {
@@ -157,32 +160,13 @@ function TaskList() {
             </AbsoluteCenter>
           </Box>
           <ButtonGroup display={"flex"} justifyContent={"center"}>
-            <Button
-              value={"All"}
-              onClick={(event) => {
-                // setCategoryType("All");
-                console.log(event.target.value);
-              }}
-              color={"primary"}
-            >
+            <Button value={"All"} onClick={e} color={"primary"}>
               الكل
             </Button>
-            <Button
-              value={"Completed"}
-              onClick={(event) => {
-                setCategoryType(event.target.value);
-              }}
-              color={"primary"}
-            >
+            <Button value={"Completed"} onClick={e} color={"primary"}>
               منجز
             </Button>
-            <Button
-              value={"Non-completed"}
-              onClick={(event) => {
-                setCategoryType(event.target.value);
-              }}
-              color={"primary"}
-            >
+            <Button value={"Non-completed"} onClick={e} color={"primary"}>
               غير منجز
             </Button>
           </ButtonGroup>
