@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-function DeleteAlertModal({ isOpen, onClose, tasksObj, handleDelete }) {
+function DeleteAlertModal({ isOpen, onClose, SingleTask, handleDelete }) {
   return (
     <>
       <Modal textAlign={"right"} size={"lg"} isOpen={isOpen} onClose={onClose}>
@@ -26,7 +26,7 @@ function DeleteAlertModal({ isOpen, onClose, tasksObj, handleDelete }) {
           <ModalFooter display={"flex"} gap={3}>
             <Button
               onClick={() => {
-                handleDelete(tasksObj.id);
+                handleDelete(SingleTask.id);
               }}
               bg="red.300"
               color={"gray.100"}

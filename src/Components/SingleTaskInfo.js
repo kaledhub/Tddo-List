@@ -23,23 +23,46 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { MdCancel } from "react-icons/md";
 
 function SingleTaskInfo({
-  tasksObj,
+  allTasks,
+  SingleTask,
+  setTasksObj,
   handleIsCompleted,
   handleDelete,
-  handleEdit,
-  editInputsObj,
-  setEditInputsObj,
 }) {
   // for Delete Modal, this came from <EditAlertModal/> component
   const { isOpen, onOpen, onClose } = useDisclosure();
   // useState of Edit Modal
   const [showEditModal, setShowEditModal] = useState(false);
+  // useState for edit task
+  const [ediInputs, setEdiInputs] = useState({
+    taskTitle: SingleTask.taskTitle,
+    taskDetails: SingleTask.taskDetails,
+  });
 
   // HANDLING SHOW EDIT MODAL
   const handleShowingEditModal = () => {
     !showEditModal ? setShowEditModal(true) : setShowEditModal(false);
   };
   // ==== HANDLING SHOW EDIT MODAL====
+
+  // HANDLING EDIT TASK
+  const handleEditTaskClick = (taskId) => {
+    const updateTask = allTasks.map((task) => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          taskTitle: ediInputs.taskTitle,
+          taskDetails: ediInputs.taskDetails,
+        };
+      } else {
+        return task;
+      }
+    });
+
+    setTasksObj(updateTask);
+    // setEdiInputs({ ...ediInputs, taskTitle: "", taskDetails: "" });
+  };
+  // ==== HANDLING EDIT TASK ====
 
   return (
     <>
@@ -48,16 +71,16 @@ function SingleTaskInfo({
       <EditAlertModal
         OpenEditModal={showEditModal}
         onCloseEditModal={handleShowingEditModal}
-        tasksObj={tasksObj}
-        handleEdit={handleEdit} // this prop came from <TaskList />
-        editInputsObj={editInputsObj} // this prop came from <TaskList />
-        setEditInputsObj={setEditInputsObj} // this prop came from <TaskList />
+        SingleTask={SingleTask}
+        handleEdit={handleEditTaskClick} // this prop came from <TaskList />
+        editInputsObj={ediInputs} // this prop came from <TaskList />
+        setEditInputsObj={setEdiInputs} // this prop came from <TaskList />
       />
       {/* Delete Modal */}
       <DeleteAlertModal
         isOpen={isOpen}
         onClose={onClose}
-        tasksObj={tasksObj}
+        SingleTask={SingleTask}
         handleDelete={handleDelete} // this prop came from <TaskList />
       />
       {/* === MODALS ===  */}
@@ -72,8 +95,17 @@ function SingleTaskInfo({
       >
         <Grid templateColumns="repeat(12, 1fr)">
           <GridItem colSpan={8}>
-            <Text fontWeight={"bold"}>{tasksObj.taskTitle}</Text>
-            <Text>{tasksObj.taskDetails}</Text>
+            <Text
+              fontWeight={"bold"}
+              textDecoration={SingleTask.isCompleted ? "line-through" : "none"}
+            >
+              {SingleTask.taskTitle}
+            </Text>
+            <Text
+              textDecoration={SingleTask.isCompleted ? "line-through" : "none"}
+            >
+              {SingleTask.taskDetails}
+            </Text>
           </GridItem>
 
           <GridItem
@@ -87,11 +119,11 @@ function SingleTaskInfo({
               {/* CHECKED ICON */}
               <IconButton
                 onClick={() => {
-                  handleIsCompleted(tasksObj.id);
+                  handleIsCompleted(SingleTask.id);
                 }}
-                color={tasksObj.isCompleted ? "green.400" : "gray.400"}
+                color={SingleTask.isCompleted ? "green.400" : "gray.400"}
                 border={"2px"}
-                borderColor={tasksObj.isCompleted ? "green.400" : "gray.400"}
+                borderColor={SingleTask.isCompleted ? "green.400" : "gray.400"}
                 borderRadius={"full"}
                 icon={<CheckCircleIcon />}
               />

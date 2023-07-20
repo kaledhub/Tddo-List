@@ -18,14 +18,14 @@ function EditAlertModal({
   // ======================= EDIT MODAL STATE ==============================
 
   // const [tasks, setTasks] = useState(tasksList); from <TaskList />
-  tasksObj,
+  SingleTask,
   handleEdit,
-  // ======================= TASKS STATE ==============================
+  // ======================= TASKS STATE ===================================
 
-  // const [ediInputs, setEdiInputs] = useState({ taskTitle: "", taskDetails: ""}); <TaskList />
+  // const [ediInputs, setEdiInputs] = useState({ taskTitle: "", taskDetails: ""}); <SingleTaskInfo />
   editInputsObj,
   setEditInputsObj,
-  // ======================== EDIT INPUTS STATE=========================
+  // ======================== EDIT INPUTS STATE==============================
 }) {
   return (
     <>
@@ -74,7 +74,7 @@ function EditAlertModal({
               color={"gray.100"}
               _hover={{ bg: "blue.500" }}
               onClick={() => {
-                handleEdit(tasksObj.id);
+                handleEdit(SingleTask.id);
                 onCloseEditModal();
               }}
             >

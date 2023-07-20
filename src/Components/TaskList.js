@@ -43,11 +43,6 @@ function TaskList() {
   const [tasks, setTasks] = useState(tasksList);
   //useState for adding new title input
   const [titleInput, setTitleInput] = useState("");
-  // useState for edit task
-  const [ediInputs, setEdiInputs] = useState({
-    taskTitle: "",
-    taskDetails: "",
-  });
 
   // === ALL STATES ===
 
@@ -78,24 +73,6 @@ function TaskList() {
   };
   // ==== HANDLING ADD A NEW TASK ====
 
-  // HANDLING EDIT TASK
-  const handleEditTaskClick = (taskId) => {
-    const updateTask = tasks.map((task) => {
-      if (task.id === taskId) {
-        return {
-          ...task,
-          taskTitle: ediInputs.taskTitle,
-          taskDetails: ediInputs.taskDetails,
-        };
-      } else {
-        return task;
-      }
-    });
-
-    setTasks(updateTask);
-  };
-  // ==== HANDLING EDIT TASK ====
-
   // HANDLING DELETE TASK
   const handleDeleteTaskClick = (taskId) => {
     const deleteTask = tasks.filter((task) => {
@@ -115,12 +92,11 @@ function TaskList() {
       return (
         <SingleTaskInfo
           key={task.id}
-          tasksObj={task}
+          SingleTask={task}
+          allTasks={tasks}
           handleIsCompleted={handleIsCompletedOnClick} // send this prop to <SingleTaskInfo />
           handleDelete={handleDeleteTaskClick} // send this prop to to <DeleteAlertModal />
-          handleEdit={handleEditTaskClick} // send this prop to to <EditAlertModal />
-          editInputsObj={ediInputs} // send this prop to to <EditAlertModal />
-          setEditInputsObj={setEdiInputs} // send this prop to to <EditAlertModal />
+          setTasksObj={setTasks}
         />
       );
     }
@@ -187,6 +163,7 @@ function TaskList() {
             </GridItem>
             <GridItem colSpan={1}>
               <Button
+                isDisabled={titleInput.length === 0}
                 onClick={handleAddNewTaskClick}
                 bg={"primary"}
                 _hover={{ bg: "primary_hover" }}
