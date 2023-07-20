@@ -8,11 +8,10 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  Input,
   Text,
 } from "@chakra-ui/react";
 
-function DeleteAlertModal({ isOpen, onClose }) {
+function DeleteAlertModal({ isOpen, onClose, tasksObj, handleDelete }) {
   return (
     <>
       <Modal textAlign={"right"} size={"lg"} isOpen={isOpen} onClose={onClose}>
@@ -25,7 +24,14 @@ function DeleteAlertModal({ isOpen, onClose }) {
           </ModalBody>
 
           <ModalFooter display={"flex"} gap={3}>
-            <Button bg="red.300" color={"gray.100"} _hover={{ bg: "red.400" }}>
+            <Button
+              onClick={() => {
+                handleDelete(tasksObj.id);
+              }}
+              bg="red.300"
+              color={"gray.100"}
+              _hover={{ bg: "red.400" }}
+            >
               نعم، قم بحذف المهمّة
             </Button>
 

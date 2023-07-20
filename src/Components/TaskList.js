@@ -69,6 +69,15 @@ function TaskList() {
     setTitleInput("");
   };
 
+  // HANDLING DELETE TASK
+  const handleDeleteTaskClick = (taskId) => {
+    const deleteTask = tasks.filter((task) => {
+      return task.id !== taskId;
+    });
+    setTasks(deleteTask);
+  };
+  // ==== HANDLING DELETE TASK ====
+
   // reverse [tasks] to show the latest task that added to tasks
   const tasksObjWithReverse = [...tasks].reverse();
   // map to show tasks object in <SingleTaskInfo/>
@@ -80,7 +89,8 @@ function TaskList() {
         <SingleTaskInfo
           key={task.id}
           tasksObj={task}
-          handleIsCompleted={handleIsCompletedOnClick}
+          handleIsCompleted={handleIsCompletedOnClick} // send this prop to <SingleTaskInfo />
+          handleDelete={handleDeleteTaskClick} // send this prop to to <DeleteAlertModal />
         />
       );
     }
