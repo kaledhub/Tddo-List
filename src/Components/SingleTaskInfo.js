@@ -29,6 +29,7 @@ function SingleTaskInfo({
   handleIsCompleted,
   handleDelete,
 }) {
+  // STATE SECTION
   // for Delete Modal, this came from <EditAlertModal/> component
   const { isOpen, onOpen, onClose } = useDisclosure();
   // useState of Edit Modal
@@ -38,6 +39,7 @@ function SingleTaskInfo({
     taskTitle: SingleTask.taskTitle,
     taskDetails: SingleTask.taskDetails,
   });
+  // === STATE SECTION ===
 
   // HANDLING SHOW EDIT MODAL
   const handleShowingEditModal = () => {
@@ -60,6 +62,7 @@ function SingleTaskInfo({
     });
 
     setTasksObj(updateTask);
+    localStorage.setItem("task", JSON.stringify(updateTask));
     // setEdiInputs({ ...ediInputs, taskTitle: "", taskDetails: "" });
   };
   // ==== HANDLING EDIT TASK ====

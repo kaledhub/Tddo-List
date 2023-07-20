@@ -2,7 +2,7 @@
 import SingleTaskInfo from "./SingleTaskInfo";
 
 // OTHER
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // IMPORTS OF CHAKRA COMPONENTS
 import {
@@ -25,7 +25,7 @@ import {
 import { BsCardChecklist } from "react-icons/bs";
 
 // IMPORT UUID
-import { v4 as uuidv4 } from "uuid";
+import { parse, v4 as uuidv4 } from "uuid";
 
 // TASKS OBJECT
 const tasksList = [
@@ -37,16 +37,23 @@ const tasksList = [
   },
 ];
 function TaskList() {
-  // ALL STATES
+  // STATES SECTION
 
   // useState of tasks object
   const [tasks, setTasks] = useState(tasksList);
   //useState for adding new title input
   const [titleInput, setTitleInput] = useState("");
 
-  // === ALL STATES ===
+  // === STATES SECTION ===
 
-  // handleIsCompletedOnClick to check when task is completed or not
+  // useEffect to read data from local storage
+  useEffect(() => {
+    const tasksStorage = JSON.parse(localStorage.getItem("task"));
+    setTasks(tasksStorage);
+  }, []);
+  // === GET DATA FROM LOCAL STORAGE ===
+
+  // HANDLING IS COMPLETED TO SWITCH ICON FROM NOT COMPLETE TO COMPLETED
   const handleIsCompletedOnClick = (taskId) => {
     const isCompletedTask = tasks.map((task) => {
       if (task.id === taskId) {
@@ -56,7 +63,9 @@ function TaskList() {
     });
 
     setTasks(isCompletedTask);
+    localStorage.setItem("task", JSON.stringify(isCompletedTask));
   };
+  // ==== HANDLING IS COMPLETE ====
 
   // HANDLING ADD A NEW TASK
   const handleAddNewTaskClick = () => {
@@ -68,8 +77,10 @@ function TaskList() {
       isCompleted: false,
     };
 
-    setTasks([...tasks, newTask]);
+    const updatedTasks = [...tasks, newTask];
+    setTasks(updatedTasks);
     setTitleInput("");
+    localStorage.setItem("task", JSON.stringify(updatedTasks));
   };
   // ==== HANDLING ADD A NEW TASK ====
 
@@ -79,6 +90,7 @@ function TaskList() {
       return task.id !== taskId;
     });
     setTasks(deleteTask);
+    localStorage.setItem("task", JSON.stringify(deleteTask));
   };
   // ==== HANDLING DELETE TASK ====
 
