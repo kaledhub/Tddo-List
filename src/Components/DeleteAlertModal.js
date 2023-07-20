@@ -9,6 +9,7 @@ import {
   ModalCloseButton,
   Button,
   Input,
+  Text,
 } from "@chakra-ui/react";
 
 function DeleteAlertModal({ isOpen, onClose }) {
@@ -20,36 +21,21 @@ function DeleteAlertModal({ isOpen, onClose }) {
           <ModalHeader mt={"5"}>حذف المهمّة</ModalHeader>
           <ModalCloseButton size={"sm"} _hover={{ bg: "red.300" }} />
           <ModalBody>
-            <Input
-              variant="flushed"
-              placeholder="عنوان المهمة"
-              textAlign={"right"}
-              borderColor={"blue.400"}
-            />
-            <Input
-              variant="flushed"
-              placeholder="تفاصيل المهمة"
-              textAlign={"right"}
-              borderColor={"blue.400"}
-            />
+            <Text>هل أنت متأكد من حذف المهمّة؟</Text>
           </ModalBody>
 
           <ModalFooter display={"flex"} gap={3}>
+            <Button bg="red.300" color={"gray.100"} _hover={{ bg: "red.400" }}>
+              نعم، قم بحذف المهمّة
+            </Button>
+
             <Button
               bg="blue.400"
               color={"gray.100"}
               _hover={{ bg: "blue.500" }}
-            >
-              تعديل
-            </Button>
-
-            <Button
-              bg="red.300"
-              color={"gray.100"}
-              _hover={{ bg: "red.400" }}
               onClick={onClose}
             >
-              إغلاق
+              تراجع عن الحذف
             </Button>
           </ModalFooter>
         </ModalContent>

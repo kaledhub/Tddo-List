@@ -28,9 +28,11 @@ function SingleTaskInfo({ tasksObj, handleIsCompleted }) {
   // useState of Edit Modal
   const [showEditModal, setShowEditModal] = useState(false);
 
+  // HANDLING SHOW EDIT MODAL
   const handleShowingEditModal = () => {
     !showEditModal ? setShowEditModal(true) : setShowEditModal(false);
   };
+  // ==== HANDLING SHOW EDIT MODAL====
 
   return (
     <>
