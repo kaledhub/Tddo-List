@@ -1,3 +1,10 @@
+// IMPORT COMPONENTS
+import EditAlertModal from "./EditAlertModal";
+import DeleteAlertModal from "./DeleteAlertModal";
+
+// HOOKS
+import { useState } from "react";
+
 // IMPORTS OF CHAKRA COMPONENTS
 import {
   Text,
@@ -6,6 +13,7 @@ import {
   Grid,
   GridItem,
   Card,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 // IMPORT CHAKRA ICONS
@@ -15,8 +23,27 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { MdCancel } from "react-icons/md";
 
 function SingleTaskInfo({ tasksObj, handleIsCompleted }) {
+  // for Delete Modal, this came from <EditAlertModal/> component
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  // useState of Edit Modal
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const handleShowingEditModal = () => {
+    !showEditModal ? setShowEditModal(true) : setShowEditModal(false);
+  };
+
   return (
     <>
+      {/* MODALS */}
+      {/* Edit Modal */}
+      <EditAlertModal
+        OpenEditModal={showEditModal}
+        onCloseEditModal={handleShowingEditModal}
+      />
+      {/* Delete Modal */}
+      <DeleteAlertModal isOpen={isOpen} onClose={onClose} />
+      {/* === MODALS ===  */}
+
       <Card
         bg={"#63B3ED"}
         w={"full"}
@@ -54,6 +81,7 @@ function SingleTaskInfo({ tasksObj, handleIsCompleted }) {
 
               {/* EDIT ICON */}
               <IconButton
+                onClick={handleShowingEditModal}
                 color="#4299E1"
                 border={"2px"}
                 borderColor={"#4299E1"}
@@ -64,6 +92,7 @@ function SingleTaskInfo({ tasksObj, handleIsCompleted }) {
 
               {/* DELETE ICON */}
               <IconButton
+                onClick={onOpen}
                 color="error"
                 border={"2px"}
                 borderColor={"error"}
