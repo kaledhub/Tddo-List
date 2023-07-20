@@ -22,7 +22,14 @@ import { CheckCircleIcon } from "@chakra-ui/icons";
 import { RiEditBoxFill } from "react-icons/ri";
 import { MdCancel } from "react-icons/md";
 
-function SingleTaskInfo({ tasksObj, handleIsCompleted, handleDelete }) {
+function SingleTaskInfo({
+  tasksObj,
+  handleIsCompleted,
+  handleDelete,
+  handleEdit,
+  editInputsObj,
+  setEditInputsObj,
+}) {
   // for Delete Modal, this came from <EditAlertModal/> component
   const { isOpen, onOpen, onClose } = useDisclosure();
   // useState of Edit Modal
@@ -41,6 +48,10 @@ function SingleTaskInfo({ tasksObj, handleIsCompleted, handleDelete }) {
       <EditAlertModal
         OpenEditModal={showEditModal}
         onCloseEditModal={handleShowingEditModal}
+        tasksObj={tasksObj}
+        handleEdit={handleEdit} // this prop came from <TaskList />
+        editInputsObj={editInputsObj} // this prop came from <TaskList />
+        setEditInputsObj={setEditInputsObj} // this prop came from <TaskList />
       />
       {/* Delete Modal */}
       <DeleteAlertModal

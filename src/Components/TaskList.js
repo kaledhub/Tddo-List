@@ -37,11 +37,19 @@ const tasksList = [
   },
 ];
 function TaskList() {
+  // ALL STATES
+
   // useState of tasks object
   const [tasks, setTasks] = useState(tasksList);
-
   //useState for adding new title input
   const [titleInput, setTitleInput] = useState("");
+  // useState for edit task
+  const [ediInputs, setEdiInputs] = useState({
+    taskTitle: "",
+    taskDetails: "",
+  });
+
+  // === ALL STATES ===
 
   // handleIsCompletedOnClick to check when task is completed or not
   const handleIsCompletedOnClick = (taskId) => {
@@ -55,9 +63,9 @@ function TaskList() {
     setTasks(isCompletedTask);
   };
 
-  // handleAddNewTaskClick to add a new task
+  // HANDLING ADD A NEW TASK
   const handleAddNewTaskClick = () => {
-    // The new task should have the same structure of the main object
+    // THE NEW TASK SHOULD HAVE THE SAME STRUCTURE OF THE MAIN OBJECT
     const newTask = {
       id: uuidv4(),
       taskTitle: titleInput,
@@ -68,6 +76,25 @@ function TaskList() {
     setTasks([...tasks, newTask]);
     setTitleInput("");
   };
+  // ==== HANDLING ADD A NEW TASK ====
+
+  // HANDLING EDIT TASK
+  const handleEditTaskClick = (taskId) => {
+    const updateTask = tasks.map((task) => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          taskTitle: ediInputs.taskTitle,
+          taskDetails: ediInputs.taskDetails,
+        };
+      } else {
+        return task;
+      }
+    });
+
+    setTasks(updateTask);
+  };
+  // ==== HANDLING EDIT TASK ====
 
   // HANDLING DELETE TASK
   const handleDeleteTaskClick = (taskId) => {
@@ -91,6 +118,9 @@ function TaskList() {
           tasksObj={task}
           handleIsCompleted={handleIsCompletedOnClick} // send this prop to <SingleTaskInfo />
           handleDelete={handleDeleteTaskClick} // send this prop to to <DeleteAlertModal />
+          handleEdit={handleEditTaskClick} // send this prop to to <EditAlertModal />
+          editInputsObj={ediInputs} // send this prop to to <EditAlertModal />
+          setEditInputsObj={setEdiInputs} // send this prop to to <EditAlertModal />
         />
       );
     }
