@@ -4,6 +4,8 @@ import DeleteAlertModal from "./DeleteAlertModal";
 
 // HOOKS
 import { useState } from "react";
+// THIS IS A CUSTOM HOOK
+import { useMyToast } from "../Contexts/ToastContext";
 
 // IMPORTS OF CHAKRA COMPONENTS
 import {
@@ -41,6 +43,8 @@ function SingleTaskInfo({
   });
   // === STATE SECTION ===
 
+  const { customizeToast } = useMyToast();
+
   // HANDLING SHOW EDIT MODAL
   const handleShowingEditModal = () => {
     !showEditModal ? setShowEditModal(true) : setShowEditModal(false);
@@ -63,6 +67,7 @@ function SingleTaskInfo({
 
     setTasksObj(updateTask);
     localStorage.setItem("task", JSON.stringify(updateTask));
+    customizeToast("تم تعديل بيانات المهمّة بنجاح", "info");
     // setEdiInputs({ ...ediInputs, taskTitle: "", taskDetails: "" });
   };
   // ==== HANDLING EDIT TASK ====

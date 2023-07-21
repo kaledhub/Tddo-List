@@ -77,10 +77,7 @@ function EditAlertModal({
                 handleEdit(SingleTask.id);
                 onCloseEditModal();
               }}
-              isDisabled={
-                editInputsObj.taskTitle.length === 0 ||
-                editInputsObj.taskDetails.length === 0
-              }
+              isDisabled={editInputsObj.taskTitle.length === 0}
             >
               تعديل
             </Button>

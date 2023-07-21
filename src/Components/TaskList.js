@@ -2,7 +2,9 @@
 import SingleTaskInfo from "./SingleTaskInfo";
 
 // Hooks
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
+// THIS IS A CUSTOM HOOK
+import { useMyToast } from "../Contexts/ToastContext";
 
 // IMPORTS OF CHAKRA COMPONENTS
 import {
@@ -37,6 +39,7 @@ const tasksList = [
   },
 ];
 function TaskList() {
+  const { customizeToast } = useMyToast();
   // STATES SECTION
 
   // useState of tasks object
@@ -54,14 +57,24 @@ function TaskList() {
   }, []);
   // === GET DATA FROM LOCAL STORAGE ===
 
-  const e = (e) => {
-    setCategoryType(e.target.value);
+  // HANDLE CATEGORIES CLICK [ALL, COMPLETED, NON-COMPLETED]
+  const handleCategoriesClick = (event) => {
+    setCategoryType(event.target.value);
   };
+  // ==== HANDLE CATEGORIES CLICK ====
+
   // HANDLING IS COMPLETED TO SWITCH ICON FROM NOT COMPLETE TO COMPLETED
   const handleIsCompletedOnClick = (taskId) => {
     const isCompletedTask = tasks.map((task) => {
       if (task.id === taskId) {
-        task.isCompleted = !task.isCompleted;
+        if (task.isCompleted === true) {
+          customizeToast(`تم إضافة المهمّة للمهام غير المنجزة`, "success");
+          task.isCompleted = false;
+        } else {
+          customizeToast("تم إضافة المهمّة للمهام المنجزة", "success");
+          task.isCompleted = true;
+        }
+        // task.isCompleted = !task.isCompleted;
       }
       return task;
     });
@@ -85,6 +98,7 @@ function TaskList() {
     setTasks(updatedTasks);
     setTitleInput("");
     localStorage.setItem("task", JSON.stringify(updatedTasks));
+    customizeToast("تم إضافة مهمّة جديدة بنجاح", "success");
   };
   // ==== HANDLING ADD A NEW TASK ====
 
@@ -95,21 +109,19 @@ function TaskList() {
     });
     setTasks(deleteTask);
     localStorage.setItem("task", JSON.stringify(deleteTask));
+    customizeToast("تم حذف المهمّة بنجاح", "error");
   };
   // ==== HANDLING DELETE TASK ====
 
   // CATEGORY FILTRATION
   // useMemo in this situation to handling computations to rendered just when tasks state change
   const completedCategory = useMemo(() => {
-    console.log("completed");
     return tasks.filter((task) => {
       return task.isCompleted;
     });
   }, [tasks]);
 
   const notCompletedCategory = useMemo(() => {
-    console.log("non completed");
-
     return tasks.filter((task) => {
       return !task.isCompleted;
     });
@@ -168,13 +180,25 @@ function TaskList() {
             </AbsoluteCenter>
           </Box>
           <ButtonGroup display={"flex"} justifyContent={"center"}>
-            <Button value={"All"} onClick={e} color={"primary"}>
+            <Button
+              value={"All"}
+              onClick={handleCategoriesClick}
+              color={"primary"}
+            >
               الكل
             </Button>
-            <Button value={"Completed"} onClick={e} color={"primary"}>
+            <Button
+              value={"Completed"}
+              onClick={handleCategoriesClick}
+              color={"primary"}
+            >
               منجز
             </Button>
-            <Button value={"Non-completed"} onClick={e} color={"primary"}>
+            <Button
+              value={"Non-completed"}
+              onClick={handleCategoriesClick}
+              color={"primary"}
+            >
               غير منجز
             </Button>
           </ButtonGroup>
