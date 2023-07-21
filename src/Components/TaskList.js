@@ -2,7 +2,7 @@
 import SingleTaskInfo from "./SingleTaskInfo";
 
 // Hooks
-import { useState, useEffect, useMemo, useContext } from "react";
+import { useState, useEffect, useMemo } from "react";
 // THIS IS A CUSTOM HOOK
 import { useMyToast } from "../Contexts/ToastContext";
 
