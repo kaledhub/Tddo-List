@@ -1,8 +1,8 @@
 // IMPORT COMPONENTS
 import SingleTaskInfo from "./SingleTaskInfo";
 
-// OTHER
-import { useState, useEffect } from "react";
+// Hooks
+import { useState, useEffect, useMemo } from "react";
 
 // IMPORTS OF CHAKRA COMPONENTS
 import {
@@ -46,7 +46,7 @@ function TaskList() {
   // useState of tasks categories
   const [categoryType, setCategoryType] = useState("All");
   // === STATES SECTION ===
-  console.log(categoryType);
+
   // useEffect to read data from local storage
   useEffect(() => {
     const tasksStorage = JSON.parse(localStorage.getItem("task")) ?? [];
@@ -99,13 +99,21 @@ function TaskList() {
   // ==== HANDLING DELETE TASK ====
 
   // CATEGORY FILTRATION
-  const completedCategory = tasks.filter((task) => {
-    return task.isCompleted;
-  });
+  // useMemo in this situation to handling computations to rendered just when tasks state change
+  const completedCategory = useMemo(() => {
+    console.log("completed");
+    return tasks.filter((task) => {
+      return task.isCompleted;
+    });
+  }, [tasks]);
 
-  const notCompletedCategory = tasks.filter((task) => {
-    return !task.isCompleted;
-  });
+  const notCompletedCategory = useMemo(() => {
+    console.log("non completed");
+
+    return tasks.filter((task) => {
+      return !task.isCompleted;
+    });
+  }, [tasks]);
 
   // === CATEGORY FILTRATION ===
 
@@ -121,7 +129,7 @@ function TaskList() {
   }
 
   // reverse [tasks] to show the latest task that added to tasks
-  // tasksToBeRendered = [...tasks].reverse();
+  // tasksToBeRendered = [...tasks].reverse(); /problem here because mutation/
   // map to show tasks object in <SingleTaskInfo/>
   const showingTasks = [...tasksToBeRendered].reverse().map((task) => {
     if (task.taskTitle === null) {
