@@ -42,7 +42,7 @@ function Navbar() {
           top={{ base: "16", md: "0", lg: "0" }}
           right={{ base: "0", md: "0", lg: "0" }}
           height={{ base: "100vh", md: "0", lg: "0" }}
-          w={{ base: "100vh", md: "relative", lg: "relative" }}
+          w={{ base: "lg", md: "relative", lg: "relative" }}
           bg={{
             base: "whiteAlpha.900",
             md: "whiteAlpha.900",
@@ -71,7 +71,7 @@ function Navbar() {
           // onClick={showNavbar}
         >
           {/* <HamburgerIcon /> */}
-          {!isOpen ? <CloseIcon /> : <HamburgerIcon />}
+          {isOpen ? <CloseIcon /> : <HamburgerIcon />}
         </Button>
       </Box>
     </>
