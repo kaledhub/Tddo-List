@@ -1,22 +1,17 @@
 import "../Styles/navbar.css";
 
 // IMPORT CHAKRA UI
-import { Text, Flex, Button, HStack, Box, Link } from "@chakra-ui/react";
+import { Text, Button, Box, Link } from "@chakra-ui/react";
 
 // IMPORT CHAKRA ICONS
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 // HOOKS
 import { useState } from "react";
-import { transform } from "framer-motion";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("nav_list");
-
-  const toggleNavbar = () => {
-    setIsOpen(!isOpen);
-  };
 
   const navToggle = () => {
     active === "nav_list"
