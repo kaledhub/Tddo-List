@@ -164,8 +164,9 @@ function TaskList() {
     <>
       <Card
         bg={"whiteBlack.600"}
-        w={{ base: "sm", md: "md", lg: "md" }}
-        h={"xl"}
+        w={{ base: "100vh", md: "md", lg: "md" }}
+        h={{ base: "100vh", md: "xl", lg: "xl" }}
+        rounded={{ base: "none", md: "md", lg: "md" }}
       >
         {/* CARD HEADER: MAIN TITLE + TOGGLE BUTTONS */}
         <CardHeader>

@@ -1,0 +1,11 @@
+@media only screen and (max-width: 768px){
+    .nav_list{
+        transform: translateX(100%);
+        transition: 0.5s ease-in;
+        z-index: 1;
+    }
+}
+
+.nav_active{
+    transform: translateX(0);  
+}
