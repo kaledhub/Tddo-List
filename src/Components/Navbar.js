@@ -42,7 +42,7 @@ function Navbar() {
           top={{ base: "16", md: "0", lg: "0" }}
           right={{ base: "0", md: "0", lg: "0" }}
           height={{ base: "100vh", md: "0", lg: "0" }}
-          w={{ base: "lg", md: "relative", lg: "relative" }}
+          w={{ base: "sm", md: "0", lg: "0" }}
           bg={{
             base: "whiteAlpha.900",
             md: "whiteAlpha.900",
@@ -55,7 +55,6 @@ function Navbar() {
           <Link href="/#">التقويم</Link>
           <Link href="/#">التذكيرات</Link>
           <Button
-            bg={"transparent"}
             visibility={{ base: "", md: "hidden", lg: "hidden" }}
             className="nav-btn nav-close-btn"
             // onClick={showNavbar}
@@ -64,8 +63,10 @@ function Navbar() {
           </Button>
         </Box>
         <Button
+          bg={"whiteAlpha.900"}
+          _hover={{ bg: "whiteAlpha.900" }}
           onClick={navToggle}
-          bg={"transparent"}
+          // bg={"transparent"}
           visibility={{ base: "visible", md: "hidden", lg: "hidden" }}
           className="nav-btn"
           // onClick={showNavbar}

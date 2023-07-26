@@ -5,6 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 // CHAKRA PROVIDER
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+// REACT ROUTER DOM
+import { BrowserRouter } from "react-router-dom";
 
 // 2. Call `extendTheme` and pass your custom values
 const theme = extendTheme({
@@ -21,9 +23,11 @@ const theme = extendTheme({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <App />
-    </ChakraProvider>
+    <BrowserRouter>
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
