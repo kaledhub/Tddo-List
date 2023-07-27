@@ -35,11 +35,12 @@ import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 
 // HOOKS
-import { useState, useMemo } from "react";
+import { useState, useMemo, useContext } from "react";
+import { NewAlertContext } from "../Contexts/NewAlertContext";
 // CALENDER CUSTOM HOOK
 import { useCalender } from "../Contexts/CalenderContext";
 
-function NewAlert({ test }) {
+function NewAlert({ handleAddNewAlert }) {
   const { calender, theDate } = useCalender();
 
   const [accordionVisibility, setAccordionVisibility] = useState("hidden");
@@ -47,7 +48,8 @@ function NewAlert({ test }) {
   const [newAlertHeight, setNewAlertHeight] = useState("md");
   // useState to add new alert
 
-  const [newAlert, setNewAlert] = useState({ title: "", date: "حدد التاريخ" });
+  const { allAlerts, setAllAlerts } = useContext(NewAlertContext);
+  const [newAlert, setNewAlert] = useState({ title: "", date: "" });
 
   const handleSwitchClick = (event) => {
     if (switchIsChecked === false) {
@@ -66,7 +68,14 @@ function NewAlert({ test }) {
   }, [switchIsChecked]);
 
   const handleAddNewAlertClick = () => {
-    alert(test);
+    const myAlert = {
+      id: uuidv4(),
+      alertTitle: newAlert.title,
+      alertDate: newAlert.date,
+    };
+    const alertInserted = [...allAlerts, myAlert];
+    setAllAlerts(alertInserted);
+    localStorage.setItem("alerts", JSON.stringify(alertInserted));
   };
   return (
     <>
@@ -90,7 +99,7 @@ function NewAlert({ test }) {
               <Button color={"primary"}>التذكيرات</Button>
             </Link>
 
-            <Link to={"newAlert"}>
+            <Link>
               <Button color={"primary"}>إضافة تذكير جديد</Button>
             </Link>
           </Flex>

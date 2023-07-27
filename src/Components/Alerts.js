@@ -22,30 +22,18 @@ import { BsCardChecklist } from "react-icons/bs";
 
 import { useNavigate, Link } from "react-router-dom";
 // HOOKS
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { NewAlertContext } from "../Contexts/NewAlertContext";
 // CUSTOM HOOK
 import { useCalender } from "../Contexts/CalenderContext";
 
-// IMPORT UUID
-import { v4 as uuidv4 } from "uuid";
-
-const alerts = [
-  {
-    id: uuidv4(),
-    alertTitle: "null",
-    alertDate: null,
-  },
-];
 function Alerts() {
   // FROM CALENDER PROVIDER
   const { theDate } = useCalender();
+  const { allAlerts, setAllAlerts } = useContext(NewAlertContext);
   // useState
-  const [allAlerts, setAllAlerts] = useState(alerts);
-
-  const test = allAlerts.map((alert) => {
-    return <NewAlert test={"test"} />;
-  });
-
+  // const [allAlerts, setAllAlerts] = useState(alerts);
+  const [alertPath, setAlertPath] = useState("alerts");
   const allAlertsCard = allAlerts.map((alert) => {
     return (
       <Box key={alert.id}>
@@ -55,6 +43,7 @@ function Alerts() {
           display={"flex"}
           justifyContent={"center"}
           justifyItems={"center"}
+          mt={3}
         >
           <Grid templateColumns="repeat(12, 1fr)">
             <GridItem colSpan={8}>
@@ -88,15 +77,30 @@ function Alerts() {
           </Box>
           <Flex justifyContent={"center"} alignItems={"center"} gap={3}>
             <Link to={"/alerts"}>
-              <Button color={"primary"}>التذكيرات</Button>
+              <Button
+                onClick={() => {
+                  setAlertPath("alerts");
+                }}
+                color={"primary"}
+              >
+                التذكيرات
+              </Button>
             </Link>
 
             <Link to={"newAlert"}>
-              <Button color={"primary"}>إضافة تذكير جديد</Button>
+              <Button
+                onClick={() => {
+                  setAlertPath("newAlert");
+                }}
+                color={"primary"}
+              >
+                إضافة تذكير جديد
+              </Button>
             </Link>
           </Flex>
         </CardHeader>
-        <CardBody>{allAlertsCard}</CardBody>
+
+        <CardBody> {allAlertsCard} </CardBody>
       </Card>
     </>
   );
