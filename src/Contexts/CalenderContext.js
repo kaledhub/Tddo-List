@@ -23,10 +23,16 @@ export const CalenderProvider = ({ children }) => {
     setIsVisibleCalender(changeVisibility);
   };
 
+  const locale = "fr-CA";
   const theDate = String(date.toLocaleDateString());
   const calender = (
     <Box className={isVisibleCalender} w={{ base: "md", md: "md", lg: "md" }}>
-      <Calendar value={date} onChange={setDate} onClickDay={onClickDate} />
+      <Calendar
+        value={date}
+        onChange={setDate}
+        onClickDay={onClickDate}
+        // formatLongDate={"dd MMM YYYY"}
+      />
     </Box>
   );
   return (

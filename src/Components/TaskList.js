@@ -44,6 +44,7 @@ function TaskList() {
 
   // useState of tasks object
   const [tasks, setTasks] = useState(tasksList);
+
   //useState for adding new title input
   const [titleInput, setTitleInput] = useState("");
   // useState of tasks categories

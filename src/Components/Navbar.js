@@ -1,11 +1,13 @@
 import "../Styles/navbar.css";
 
 // IMPORT CHAKRA UI
-import { Text, Button, Box, Link } from "@chakra-ui/react";
+import { Text, Button, Box } from "@chakra-ui/react";
 
 // IMPORT CHAKRA ICONS
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
+// REACT-ROUTER-DOM
+import { Link } from "react-router-dom";
 // HOOKS
 import { useState } from "react";
 
@@ -51,9 +53,9 @@ function Navbar() {
           gap={5}
           fontWeight={"bold"}
         >
-          <Link href="/#">الرئيسية</Link>
-          <Link href="/#">التقويم</Link>
-          <Link href="/#">التذكيرات</Link>
+          <Link to="/">الرئيسية</Link>
+          <Link to="/#">التقويم</Link>
+          <Link to="/alerts">التذكيرات</Link>
           <Button
             visibility={{ base: "", md: "hidden", lg: "hidden" }}
             className="nav-btn nav-close-btn"

@@ -26,21 +26,28 @@ import {
 } from "@chakra-ui/react";
 
 // IMPORT REACT ICONS
-import { BsCardChecklist, BsCalendarDateFill } from "react-icons/bs";
-// import { HiOutlineBellAlert } from "react-icons/hi2";
-import { CgDetailsMore } from "react-icons/cg";
+import { BsCardChecklist } from "react-icons/bs";
+
+// IMPORT UUID
+import { v4 as uuidv4 } from "uuid";
+
+// REACT-ROUTER-DOM
+import { Link } from "react-router-dom";
 
 // HOOKS
 import { useState, useMemo } from "react";
 // CALENDER CUSTOM HOOK
 import { useCalender } from "../Contexts/CalenderContext";
 
-function NewAlert() {
+function NewAlert({ test }) {
   const { calender, theDate } = useCalender();
 
   const [accordionVisibility, setAccordionVisibility] = useState("hidden");
   const [switchIsChecked, setSwitchIsChecked] = useState(false);
   const [newAlertHeight, setNewAlertHeight] = useState("md");
+  // useState to add new alert
+
+  const [newAlert, setNewAlert] = useState({ title: "", date: "حدد التاريخ" });
 
   const handleSwitchClick = (event) => {
     if (switchIsChecked === false) {
@@ -57,6 +64,10 @@ function NewAlert() {
       ? setNewAlertHeight("md")
       : setNewAlertHeight("100vh");
   }, [switchIsChecked]);
+
+  const handleAddNewAlertClick = () => {
+    alert(test);
+  };
   return (
     <>
       <Card
@@ -75,8 +86,13 @@ function NewAlert() {
             </AbsoluteCenter>
           </Box>
           <Flex justifyContent={"center"} alignItems={"center"} gap={3}>
-            <Button color={"primary"}>التذكيرات</Button>
-            <Button color={"primary"}>إضافة تذكير جديد</Button>
+            <Link to={"/alerts"}>
+              <Button color={"primary"}>التذكيرات</Button>
+            </Link>
+
+            <Link to={"newAlert"}>
+              <Button color={"primary"}>إضافة تذكير جديد</Button>
+            </Link>
           </Flex>
         </CardHeader>
         <CardBody>
@@ -88,6 +104,13 @@ function NewAlert() {
             <Grid gridTemplateColumns={"repeat(12, 1fr)"}>
               <GridItem colSpan={8} style={{ direction: "rtl" }}>
                 <Input
+                  value={newAlert.title}
+                  onChange={(event) => {
+                    setNewAlert({
+                      ...newAlert,
+                      title: event.target.value,
+                    });
+                  }}
                   variant="outline"
                   placeholder="عنوان التذكير"
                   bg={"whiteAlpha.900"}
@@ -118,11 +141,19 @@ function NewAlert() {
                     <AccordionItem>
                       <h2>
                         <AccordionButton>
-                          <Box as="span" flex="1" textAlign="right">
+                          <Box as="span" flex="1">
                             <Input
+                              type="date"
+                              data-date-format="DD MMMM YYYY"
                               bg={"whiteAlpha.900"}
                               variant="outline"
-                              value={theDate}
+                              value={newAlert.date}
+                              onChange={(event) => {
+                                setNewAlert({
+                                  ...newAlert,
+                                  date: event.target.value,
+                                });
+                              }}
                             />
                           </Box>
                           <AccordionIcon />
@@ -134,7 +165,7 @@ function NewAlert() {
                         justifyContent={"center"}
                         alignItems={"center"}
                       >
-                        {calender}
+                        {/* {calender} */}
                       </AccordionPanel>
                     </AccordionItem>
                   </Accordion>
@@ -144,7 +175,12 @@ function NewAlert() {
           </Card>
         </CardBody>
         <CardFooter>
-          <Button bg={"primary"} _hover={{ bg: "teal.300" }}>
+          <Button
+            onClick={handleAddNewAlertClick}
+            bg={"primary"}
+            _hover={{ bg: "teal.300" }}
+            isDisabled={newAlert.title.length === 0}
+          >
             أضف للتذكيرات
           </Button>
         </CardFooter>

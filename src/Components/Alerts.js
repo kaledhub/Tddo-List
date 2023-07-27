@@ -1,3 +1,6 @@
+// IMPORT COMPONENTS
+import NewAlert from "./NewAlert";
+
 // IMPORT CHAKRA UI
 import {
   Card,
@@ -17,17 +20,55 @@ import {
 // IMPORT REACT ICONS
 import { BsCardChecklist } from "react-icons/bs";
 
+import { useNavigate, Link } from "react-router-dom";
 // HOOKS
 import { useState } from "react";
 // CUSTOM HOOK
 import { useCalender } from "../Contexts/CalenderContext";
 
-function Alerts() {
-  const { calender, theDate, handleCalenderClick } = useCalender();
+// IMPORT UUID
+import { v4 as uuidv4 } from "uuid";
 
-  const handleVisibleCalender = () => {
-    handleCalenderClick("is_visible");
-  };
+const alerts = [
+  {
+    id: uuidv4(),
+    alertTitle: "null",
+    alertDate: null,
+  },
+];
+function Alerts() {
+  // FROM CALENDER PROVIDER
+  const { theDate } = useCalender();
+  // useState
+  const [allAlerts, setAllAlerts] = useState(alerts);
+
+  const test = allAlerts.map((alert) => {
+    return <NewAlert test={"test"} />;
+  });
+
+  const allAlertsCard = allAlerts.map((alert) => {
+    return (
+      <Box key={alert.id}>
+        <Card
+          bg={"purple.100"}
+          p={3}
+          display={"flex"}
+          justifyContent={"center"}
+          justifyItems={"center"}
+        >
+          <Grid templateColumns="repeat(12, 1fr)">
+            <GridItem colSpan={8}>
+              <Text> {alert.alertTitle}</Text>
+            </GridItem>
+
+            <GridItem colSpan={4}>
+              <Text>{alert.alertDate}</Text>
+            </GridItem>
+          </Grid>
+        </Card>
+      </Box>
+    );
+  });
   return (
     <>
       <Card
@@ -46,34 +87,16 @@ function Alerts() {
             </AbsoluteCenter>
           </Box>
           <Flex justifyContent={"center"} alignItems={"center"} gap={3}>
-            <Button color={"primary"}>التذكيرات</Button>
-            <Button color={"primary"}>إضافة تذكير جديد</Button>
+            <Link to={"/alerts"}>
+              <Button color={"primary"}>التذكيرات</Button>
+            </Link>
+
+            <Link to={"newAlert"}>
+              <Button color={"primary"}>إضافة تذكير جديد</Button>
+            </Link>
           </Flex>
         </CardHeader>
-        <CardBody>
-          <Card
-            bg={"yellow.200"}
-            p={3}
-            display={"flex"}
-            justifyContent={"center"}
-            justifyItems={"center"}
-          >
-            <Grid templateColumns="repeat(12, 1fr)">
-              <GridItem colSpan={8}>
-                <Text>عنوان التذكير</Text>
-              </GridItem>
-
-              <GridItem colSpan={4}>
-                <Text>{theDate}</Text>
-              </GridItem>
-            </Grid>
-          </Card>
-        </CardBody>
-        <CardFooter>
-          <Button bg={"primary"} _hover={{ bg: "teal.300" }}>
-            إضافة تذكير
-          </Button>
-        </CardFooter>
+        <CardBody>{allAlertsCard}</CardBody>
       </Card>
     </>
   );

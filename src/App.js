@@ -29,8 +29,10 @@ function App() {
           >
             <Routes>
               <Route path="/" element={<TaskList />} />
-              <Route path="/alerts" element={<Alerts />} />
-              <Route path="/newAlert" element={<NewAlert />} />
+              <Route path="/alerts">
+                <Route index element={<Alerts />} />
+                <Route path="newAlert" element={<NewAlert />} />
+              </Route>
               <Route path="/calender" element={<Calender />} />
             </Routes>
           </Flex>
