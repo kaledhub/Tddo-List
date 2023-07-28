@@ -1,12 +1,8 @@
-// IMPORT COMPONENTS
-import NewAlert from "./NewAlert";
-
 // IMPORT CHAKRA UI
 import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Text,
   Button,
   Grid,
@@ -23,15 +19,12 @@ import { BiMinusCircle } from "react-icons/bi";
 
 import { Link } from "react-router-dom";
 // HOOKS
-import { useState, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { NewAlertContext } from "../Contexts/NewAlertContext";
 
 function Alerts() {
   // FROM ALL ALERTS PROVIDER
   const { allAlerts, setAllAlerts } = useContext(NewAlertContext);
-  // useState
-  // const [allAlerts, setAllAlerts] = useState(alerts);
-  const [alertPath, setAlertPath] = useState("alerts");
 
   useEffect(() => {
     const alertsStorage = JSON.parse(localStorage.getItem("alerts")) ?? [];
@@ -87,25 +80,11 @@ function Alerts() {
           </Box>
           <Flex justifyContent={"center"} alignItems={"center"} gap={3}>
             <Link to={"/alerts"}>
-              <Button
-                onClick={() => {
-                  setAlertPath("alerts");
-                }}
-                color={"primary"}
-              >
-                التذكيرات
-              </Button>
+              <Button color={"primary"}>التذكيرات</Button>
             </Link>
 
             <Link to={"newAlert"}>
-              <Button
-                onClick={() => {
-                  setAlertPath("newAlert");
-                }}
-                color={"primary"}
-              >
-                إضافة تذكير جديد
-              </Button>
+              <Button>إضافة تذكير جديد</Button>
             </Link>
           </Flex>
         </CardHeader>

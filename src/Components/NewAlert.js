@@ -21,8 +21,6 @@ import {
   AccordionButton,
   AccordionPanel,
   Input,
-  InputGroup,
-  InputLeftElement,
 } from "@chakra-ui/react";
 
 // IMPORT REACT ICONS
@@ -35,14 +33,10 @@ import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 
 // HOOKS
-import { useState, useMemo, useContext } from "react";
+import { useState, useContext } from "react";
 import { NewAlertContext } from "../Contexts/NewAlertContext";
-// CALENDER CUSTOM HOOK
-import { useCalender } from "../Contexts/CalenderContext";
 
 function NewAlert({ handleAddNewAlert }) {
-  const { calender, theDate } = useCalender();
-
   const [accordionVisibility, setAccordionVisibility] = useState("hidden");
   const [switchIsChecked, setSwitchIsChecked] = useState(false);
   // const [newAlertHeight, setNewAlertHeight] = useState("md");
