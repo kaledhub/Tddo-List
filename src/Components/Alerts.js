@@ -29,7 +29,7 @@ function Alerts() {
   useEffect(() => {
     const alertsStorage = JSON.parse(localStorage.getItem("alerts")) ?? [];
     setAllAlerts(alertsStorage);
-  }, []);
+  }, [setAllAlerts]);
 
   const allAlertsCard = allAlerts.map((alert) => {
     return (
