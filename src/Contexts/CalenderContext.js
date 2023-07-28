@@ -7,7 +7,6 @@ import "../Styles/calender.css";
 
 // HOOKS
 import { createContext, useContext, useState } from "react";
-import { string } from "prop-types";
 
 const CalenderContext = createContext(null);
 
@@ -23,7 +22,6 @@ export const CalenderProvider = ({ children }) => {
     setIsVisibleCalender(changeVisibility);
   };
 
-  const locale = "fr-CA";
   const theDate = String(date.toLocaleDateString());
   const calender = (
     <Box className={isVisibleCalender} w={{ base: "md", md: "md", lg: "md" }}>
