@@ -94,22 +94,26 @@ function SingleTaskInfo({
       {/* === MODALS ===  */}
 
       <Card
-        bg={"#63B3ED"}
+        // bg={"#63B3ED"}
+        bg={"#434343"}
         w={"full"}
         p={2}
         pl={{ base: 8 }}
         mt={2}
         _hover={{ pt: 3, pb: 3, transitionDuration: "700ms" }}
+        color={"gray.100"}
       >
         <Grid templateColumns="repeat(12, 1fr)">
           <GridItem colSpan={8}>
             <Text
+              style={{ fontWeight: "600" }}
               fontWeight={"bold"}
               textDecoration={SingleTask.isCompleted ? "line-through" : "none"}
             >
               {SingleTask.taskTitle}
             </Text>
             <Text
+              style={{ fontWeight: "200" }}
               textDecoration={SingleTask.isCompleted ? "line-through" : "none"}
             >
               {SingleTask.taskDetails}

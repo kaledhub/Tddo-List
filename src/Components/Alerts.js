@@ -19,39 +19,49 @@ import {
 
 // IMPORT REACT ICONS
 import { BsCardChecklist } from "react-icons/bs";
+import { BiMinusCircle } from "react-icons/bi";
 
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // HOOKS
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { NewAlertContext } from "../Contexts/NewAlertContext";
-// CUSTOM HOOK
-import { useCalender } from "../Contexts/CalenderContext";
 
 function Alerts() {
-  // FROM CALENDER PROVIDER
-  const { theDate } = useCalender();
+  // FROM ALL ALERTS PROVIDER
   const { allAlerts, setAllAlerts } = useContext(NewAlertContext);
   // useState
   // const [allAlerts, setAllAlerts] = useState(alerts);
   const [alertPath, setAlertPath] = useState("alerts");
+
+  useEffect(() => {
+    const alertsStorage = JSON.parse(localStorage.getItem("alerts")) ?? [];
+    setAllAlerts(alertsStorage);
+  }, []);
+
   const allAlertsCard = allAlerts.map((alert) => {
     return (
       <Box key={alert.id}>
         <Card
           bg={"purple.100"}
-          p={3}
+          // p={3}
+          color={"gray.100"}
           display={"flex"}
           justifyContent={"center"}
           justifyItems={"center"}
           mt={3}
         >
-          <Grid templateColumns="repeat(12, 1fr)">
-            <GridItem colSpan={8}>
+          <Grid templateColumns="repeat(12, 1fr)" bg={"#434343"}>
+            <GridItem colSpan={6} p={3}>
               <Text> {alert.alertTitle}</Text>
             </GridItem>
 
-            <GridItem colSpan={4}>
+            <GridItem colSpan={4} p={3}>
               <Text>{alert.alertDate}</Text>
+            </GridItem>
+            <GridItem colSpan={2} bg={"#FFF9EA"} p={3} roundedRight={20}>
+              <Button rounded={"full"} py={"-0.5"} px={"-0.5"}>
+                <BiMinusCircle color="#434343" size={25} />
+              </Button>
             </GridItem>
           </Grid>
         </Card>
@@ -100,7 +110,9 @@ function Alerts() {
           </Flex>
         </CardHeader>
 
-        <CardBody> {allAlertsCard} </CardBody>
+        <CardBody overflow={allAlerts.length >= 5 ? "scroll" : "visible"}>
+          {allAlertsCard}
+        </CardBody>
       </Card>
     </>
   );

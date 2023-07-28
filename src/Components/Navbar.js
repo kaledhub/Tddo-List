@@ -27,7 +27,7 @@ function Navbar() {
       <Box
         className="header"
         h={"16"}
-        bg={"whiteAlpha.900"}
+        bg={"#FFF9EA"}
         display={"flex"}
         justifyContent={"space-between"}
         alignItems={"center"}
@@ -46,27 +46,35 @@ function Navbar() {
           height={{ base: "100vh", md: "0", lg: "0" }}
           w={{ base: "sm", md: "0", lg: "0" }}
           bg={{
-            base: "whiteAlpha.900",
+            base: "#FFF9EA",
             md: "whiteAlpha.900",
             lg: "whiteAlpha.900",
           }}
           gap={5}
-          fontWeight={"bold"}
+          style={{ fontWeight: "600" }}
         >
-          <Link to="/">الرئيسية</Link>
-          <Link to="/#">التقويم</Link>
-          <Link to="/alerts">التذكيرات</Link>
-          <Button
+          <Box _hover={{ fontWeight: "400" }}>
+            <Link to="/">المهام</Link>
+          </Box>
+
+          <Box _hover={{ fontWeight: "400" }}>
+            <Link to="/alerts">التذكيرات</Link>
+          </Box>
+
+          <Box _hover={{ fontWeight: "400" }}>
+            <Link to="/#">التقويم</Link>
+          </Box>
+
+          {/* <Button
             visibility={{ base: "", md: "hidden", lg: "hidden" }}
             className="nav-btn nav-close-btn"
             // onClick={showNavbar}
           >
             {/* <CloseIcon /> */}
-          </Button>
+          {/* </Button> */}
         </Box>
         <Button
-          bg={"whiteAlpha.900"}
-          _hover={{ bg: "whiteAlpha.900" }}
+          bg={"#FFF9EA"}
           onClick={navToggle}
           // bg={"transparent"}
           visibility={{ base: "visible", md: "hidden", lg: "hidden" }}

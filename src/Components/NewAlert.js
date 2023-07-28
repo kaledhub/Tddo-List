@@ -45,7 +45,7 @@ function NewAlert({ handleAddNewAlert }) {
 
   const [accordionVisibility, setAccordionVisibility] = useState("hidden");
   const [switchIsChecked, setSwitchIsChecked] = useState(false);
-  const [newAlertHeight, setNewAlertHeight] = useState("md");
+  // const [newAlertHeight, setNewAlertHeight] = useState("md");
   // useState to add new alert
 
   const { allAlerts, setAllAlerts } = useContext(NewAlertContext);
@@ -61,11 +61,11 @@ function NewAlert({ handleAddNewAlert }) {
     }
   };
 
-  useMemo(() => {
-    switchIsChecked === false
-      ? setNewAlertHeight("md")
-      : setNewAlertHeight("100vh");
-  }, [switchIsChecked]);
+  // useMemo(() => {
+  //   switchIsChecked === false
+  //     ? setNewAlertHeight("md")
+  //     : setNewAlertHeight("100vh");
+  // }, [switchIsChecked]);
 
   const handleAddNewAlertClick = () => {
     const myAlert = {
@@ -81,7 +81,7 @@ function NewAlert({ handleAddNewAlert }) {
     <>
       <Card
         w={{ base: "100vh", md: "md", lg: "md" }}
-        h={{ base: "100vh", md: newAlertHeight, lg: newAlertHeight }}
+        h={{ base: "100vh", md: "md", lg: "md" }}
         rounded={{ base: "none", md: "md", lg: "md" }}
       >
         <CardHeader>
@@ -106,7 +106,7 @@ function NewAlert({ handleAddNewAlert }) {
         </CardHeader>
         <CardBody>
           <Card
-            bg={"blackAlpha.200"}
+            bg={"#FFF9EA"}
             p={3}
             h={accordionVisibility ? "6.5rem" : "fit-content"}
           >

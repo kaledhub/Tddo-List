@@ -21,7 +21,7 @@ function App() {
     <CalenderProvider>
       <NewAlertProvider>
         <ToastProvider>
-          <div className="App">
+          <div className="App" style={{ fontFamily: "Readex" }}>
             <Navbar />
             <Flex
               justifyContent={"center"}
