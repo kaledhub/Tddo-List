@@ -7,7 +7,11 @@ body{
 
 }
 
-
+/* @media only screen and (max-width: 768px){
+    body {
+        background-color: RGBA(255, 255, 255, 0.48) !important;
+    }
+} */
 /* MADA FONT */
 @font-face {
     font-family: Readex;

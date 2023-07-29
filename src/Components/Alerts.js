@@ -26,12 +26,19 @@ function Alerts() {
   // FROM ALL ALERTS PROVIDER
   const { allAlerts, setAllAlerts } = useContext(NewAlertContext);
 
+  const handleCheckedClick = (alertId) => {
+    const thisAlertChecked = allAlerts.filter((alert) => {
+      return alert.id !== alertId;
+    });
+    setAllAlerts(thisAlertChecked);
+  };
+
   useEffect(() => {
     const alertsStorage = JSON.parse(localStorage.getItem("alerts")) ?? [];
     setAllAlerts(alertsStorage);
   }, [setAllAlerts]);
 
-  const allAlertsCard = allAlerts.map((alert) => {
+  const allAlertsCard = [...allAlerts].reverse().map((alert) => {
     return (
       <Box key={alert.id}>
         <Card
@@ -52,7 +59,14 @@ function Alerts() {
               <Text>{alert.alertDate}</Text>
             </GridItem>
             <GridItem colSpan={2} bg={"#FFF9EA"} p={3} roundedRight={20}>
-              <Button rounded={"full"} py={"-0.5"} px={"-0.5"}>
+              <Button
+                onClick={() => {
+                  handleCheckedClick(alert.id);
+                }}
+                rounded={"full"}
+                py={"-0.5"}
+                px={"-0.5"}
+              >
                 <BiMinusCircle color="#434343" size={25} />
               </Button>
             </GridItem>

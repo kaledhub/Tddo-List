@@ -69,6 +69,7 @@ function NewAlert({ handleAddNewAlert }) {
     };
     const alertInserted = [...allAlerts, myAlert];
     setAllAlerts(alertInserted);
+    setNewAlert({ ...newAlert, title: "" });
     localStorage.setItem("alerts", JSON.stringify(alertInserted));
   };
   return (
@@ -178,14 +179,17 @@ function NewAlert({ handleAddNewAlert }) {
           </Card>
         </CardBody>
         <CardFooter>
-          <Button
-            onClick={handleAddNewAlertClick}
-            bg={"primary"}
-            _hover={{ bg: "teal.300" }}
-            isDisabled={newAlert.title.length === 0}
-          >
-            أضف للتذكيرات
-          </Button>
+          <Link to={"/alerts"}>
+            <Button
+              onClick={handleAddNewAlertClick}
+              bg={"primary"}
+              mb={{ base: "80", md: "0", lg: "0" }}
+              _hover={{ bg: "teal.300" }}
+              isDisabled={newAlert.title.length === 0}
+            >
+              أضف للتذكيرات
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     </>

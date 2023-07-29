@@ -15,6 +15,10 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("nav_list");
 
+  const anchorList = () => {
+    setActive("nav_list");
+    setIsOpen(false);
+  };
   const navToggle = () => {
     active === "nav_list"
       ? setActive("nav_list nav_active")
@@ -53,16 +57,16 @@ function Navbar() {
           gap={5}
           style={{ fontWeight: "600" }}
         >
-          <Box _hover={{ fontWeight: "400" }}>
+          <Box _hover={{ fontWeight: "400" }} onClick={anchorList}>
             <Link to="/">المهام</Link>
           </Box>
 
-          <Box _hover={{ fontWeight: "400" }}>
+          <Box _hover={{ fontWeight: "400" }} onClick={anchorList}>
             <Link to="/alerts">التذكيرات</Link>
           </Box>
 
-          <Box _hover={{ fontWeight: "400" }}>
-            <Link to="/#">التقويم</Link>
+          <Box _hover={{ fontWeight: "400" }} onClick={anchorList}>
+            <Link to="/calender">التقويم</Link>
           </Box>
 
           {/* <Button
