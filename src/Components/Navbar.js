@@ -65,10 +65,6 @@ function Navbar() {
             <Link to="/alerts">التذكيرات</Link>
           </Box>
 
-          <Box _hover={{ fontWeight: "400" }} onClick={anchorList}>
-            <Link to="/calender">التقويم</Link>
-          </Box>
-
           {/* <Button
             visibility={{ base: "", md: "hidden", lg: "hidden" }}
             className="nav-btn nav-close-btn"

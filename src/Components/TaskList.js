@@ -8,6 +8,7 @@ import { useMyToast } from "../Contexts/ToastContext";
 
 // IMPORTS OF CHAKRA COMPONENTS:
 import {
+  Flex,
   Text,
   Input,
   Button,
@@ -163,97 +164,104 @@ function TaskList() {
 
   return (
     <>
-      <Card
-        bg={"whiteBlack.600"}
-        w={{ base: "100vh", md: "md", lg: "md" }}
-        h={{ base: "100vh", md: "xl", lg: "xl" }}
-        rounded={{ base: "none", md: "md", lg: "md" }}
+      <Flex
+        justifyContent={"center"}
+        alignItems={"center"}
+        mt={{ base: "0", md: "36", lg: "36" }}
+        w={"full"}
       >
-        {/* CARD HEADER: MAIN TITLE + TOGGLE BUTTONS */}
-        <CardHeader>
-          <Text textAlign={"center"} fontSize={"4xl"} fontWeight={"bold"}>
-            منظّم المهام
-          </Text>
-          {/* DIVIDER BETWEEN HEADER TITLE AND TOGGLE BUTTON */}
-          <Box position="relative" padding="10">
-            <Divider borderColor={"primary"} />
-            <AbsoluteCenter bg="white" px="4">
-              <BsCardChecklist size={30} color="#63B3ED" />
-            </AbsoluteCenter>
-          </Box>
-          <ButtonGroup display={"flex"} justifyContent={"center"}>
-            <Button
-              value={"All"}
-              onClick={handleCategoriesClick}
-              color={"primary"}
-            >
-              الكل
-            </Button>
-            <Button
-              value={"Completed"}
-              onClick={handleCategoriesClick}
-              color={"primary"}
-            >
-              منجز
-            </Button>
-            <Button
-              value={"Non-completed"}
-              onClick={handleCategoriesClick}
-              color={"primary"}
-            >
-              غير منجز
-            </Button>
-          </ButtonGroup>
-          {/* === DIVIDER BETWEEN HEADER TITLE AND TOGGLE BUTTON ===*/}
-        </CardHeader>
-        {/* === CARD HEADER: MAIN TITLE + TOGGLE BUTTONS === */}
-
-        {/* CARD BODY: TASKS + ICONS */}
-        <CardBody
-          maxH={"lg"}
-          overflow={tasks.length > 4 ? "scroll" : "visible"}
+        <Card
+          bg={"whiteBlack.600"}
+          w={{ base: "100vh", md: "md", lg: "md" }}
+          h={{ base: "100vh", md: "xl", lg: "xl" }}
+          rounded={{ base: "none", md: "md", lg: "md" }}
         >
-          {showingTasks}
-        </CardBody>
-        {/* === CARD BODY: TASKS + ICONS ===  */}
-
-        {/* CARD FOOTER: TASK TITLE INPUT + ADD BUTTON */}
-        <CardFooter>
-          <Grid
-            templateColumns="repeat(12, 1fr)"
-            gap={2}
-            display={{ base: "flex", md: "grid", lg: "grid" }}
-            flexDirection={{ base: "column" }}
-            w={{ base: "full" }}
-          >
-            <GridItem colSpan={{ md: 11, lg: 11 }}>
-              <Input
-                value={titleInput}
-                onChange={(event) => {
-                  setTitleInput(event.target.value);
-                }}
-                color="teal"
-                placeholder="عنوان المهمة"
-                _placeholder={{ color: "inherit" }}
-                border={"1px"}
-                borderColor="inherit.200"
-              />
-            </GridItem>
-            <GridItem colSpan={1}>
+          {/* CARD HEADER: MAIN TITLE + TOGGLE BUTTONS */}
+          <CardHeader>
+            <Text textAlign={"center"} fontSize={"4xl"} fontWeight={"bold"}>
+              منظّم المهام
+            </Text>
+            {/* DIVIDER BETWEEN HEADER TITLE AND TOGGLE BUTTON */}
+            <Box position="relative" padding="10">
+              <Divider borderColor={"primary"} />
+              <AbsoluteCenter bg="white" px="4">
+                <BsCardChecklist size={30} color="#63B3ED" />
+              </AbsoluteCenter>
+            </Box>
+            <ButtonGroup display={"flex"} justifyContent={"center"}>
               <Button
-                isDisabled={titleInput.length === 0}
-                onClick={handleAddNewTaskClick}
-                bg={"primary"}
-                _hover={{ bg: "primary_hover" }}
-                w={{ base: "full" }}
+                value={"All"}
+                onClick={handleCategoriesClick}
+                color={"primary"}
               >
-                إضافة مهمة جديدة
+                الكل
               </Button>
-            </GridItem>
-          </Grid>
-        </CardFooter>
-        {/* ==== CARD FOOTER: TASK TITLE INPUT + ADD BUTTON ===  */}
-      </Card>
+              <Button
+                value={"Completed"}
+                onClick={handleCategoriesClick}
+                color={"primary"}
+              >
+                منجز
+              </Button>
+              <Button
+                value={"Non-completed"}
+                onClick={handleCategoriesClick}
+                color={"primary"}
+              >
+                غير منجز
+              </Button>
+            </ButtonGroup>
+            {/* === DIVIDER BETWEEN HEADER TITLE AND TOGGLE BUTTON ===*/}
+          </CardHeader>
+          {/* === CARD HEADER: MAIN TITLE + TOGGLE BUTTONS === */}
+
+          {/* CARD BODY: TASKS + ICONS */}
+          <CardBody
+            maxH={"lg"}
+            overflow={tasks.length > 4 ? "scroll" : "visible"}
+          >
+            {showingTasks}
+          </CardBody>
+          {/* === CARD BODY: TASKS + ICONS ===  */}
+
+          {/* CARD FOOTER: TASK TITLE INPUT + ADD BUTTON */}
+          <CardFooter>
+            <Grid
+              templateColumns="repeat(12, 1fr)"
+              gap={2}
+              display={{ base: "flex", md: "grid", lg: "grid" }}
+              flexDirection={{ base: "column" }}
+              w={{ base: "full" }}
+            >
+              <GridItem colSpan={{ md: 11, lg: 11 }}>
+                <Input
+                  value={titleInput}
+                  onChange={(event) => {
+                    setTitleInput(event.target.value);
+                  }}
+                  color="teal"
+                  placeholder="عنوان المهمة"
+                  _placeholder={{ color: "inherit" }}
+                  border={"1px"}
+                  borderColor="inherit.200"
+                />
+              </GridItem>
+              <GridItem colSpan={1}>
+                <Button
+                  isDisabled={titleInput.length === 0}
+                  onClick={handleAddNewTaskClick}
+                  bg={"primary"}
+                  _hover={{ bg: "primary_hover" }}
+                  w={{ base: "full" }}
+                >
+                  إضافة مهمة جديدة
+                </Button>
+              </GridItem>
+            </Grid>
+          </CardFooter>
+          {/* ==== CARD FOOTER: TASK TITLE INPUT + ADD BUTTON ===  */}
+        </Card>
+      </Flex>
     </>
   );
 }

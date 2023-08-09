@@ -77,36 +77,43 @@ function Alerts() {
   });
   return (
     <>
-      <Card
-        w={{ base: "100vh", md: "md", lg: "md" }}
-        h={{ base: "100vh", md: "xl", lg: "xl" }}
-        rounded={{ base: "none", md: "md", lg: "md" }}
+      <Flex
+        justifyContent={"center"}
+        alignItems={"center"}
+        mt={{ base: "0", md: "36", lg: "36" }}
+        w={"full"}
       >
-        <CardHeader>
-          <Text fontSize="3xl" textAlign={"center"}>
-            التذكيرات
-          </Text>
-          <Box position="relative" padding="10">
-            <Divider borderColor={"primary"} />
-            <AbsoluteCenter bg="white" px="4">
-              <BsCardChecklist size={30} color="#63B3ED" />
-            </AbsoluteCenter>
-          </Box>
-          <Flex justifyContent={"center"} alignItems={"center"} gap={3}>
-            <Link to={"/alerts"}>
-              <Button color={"primary"}>التذكيرات</Button>
-            </Link>
+        <Card
+          w={{ base: "100vh", md: "md", lg: "md" }}
+          h={{ base: "100vh", md: "xl", lg: "xl" }}
+          rounded={{ base: "none", md: "md", lg: "md" }}
+        >
+          <CardHeader>
+            <Text fontSize="3xl" textAlign={"center"}>
+              التذكيرات
+            </Text>
+            <Box position="relative" padding="10">
+              <Divider borderColor={"primary"} />
+              <AbsoluteCenter bg="white" px="4">
+                <BsCardChecklist size={30} color="#63B3ED" />
+              </AbsoluteCenter>
+            </Box>
+            <Flex justifyContent={"center"} alignItems={"center"} gap={3}>
+              <Link to={"/alerts"}>
+                <Button color={"primary"}>التذكيرات</Button>
+              </Link>
 
-            <Link to={"newAlert"}>
-              <Button>إضافة تذكير جديد</Button>
-            </Link>
-          </Flex>
-        </CardHeader>
+              <Link to={"newAlert"}>
+                <Button>إضافة تذكير جديد</Button>
+              </Link>
+            </Flex>
+          </CardHeader>
 
-        <CardBody overflow={allAlerts.length >= 5 ? "scroll" : "visible"}>
-          {allAlertsCard}
-        </CardBody>
-      </Card>
+          <CardBody overflow={allAlerts.length >= 5 ? "scroll" : "visible"}>
+            {allAlertsCard}
+          </CardBody>
+        </Card>
+      </Flex>
     </>
   );
 }
