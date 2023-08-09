@@ -11,9 +11,6 @@ import { Route, Routes } from "react-router-dom";
 import { ToastProvider } from "./Contexts/ToastContext";
 import { NewAlertProvider } from "./Contexts/NewAlertContext";
 
-// CHAKRA IMPORTS
-import { Flex } from "@chakra-ui/react";
-
 function App() {
   return (
     <NewAlertProvider>
